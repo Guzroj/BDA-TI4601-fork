@@ -88,7 +88,7 @@ Responda en **media página como máximo**, con números:
 
 1. Mida en `mongosh` el tamaño de una orden de ejemplo con `bsonsize({...})`, con los campos `_id`, `evento_id`, `zona`, `cantidad`, `estado` y `creada_en`. Estime cuántas órdenes caben en un evento antes del límite de 16 MB por documento.
 2. ¿Qué pasa cuando cientos de compradores escriben al mismo tiempo sobre el **mismo** documento? Mencione una ventaja y una desventaja de que todo esté en un solo documento.
-3. Dé una regla de una o dos oraciones para decidir cuándo embeber y cuándo referenciar. Aplíquela a un ejemplo de otro dominio que no sea la boletería ni el Proyecto 2.
+3. Dé una regla de una o dos oraciones para decidir cuándo anidar y cuándo referenciar. Aplíquela a un ejemplo de otro dominio que no sea la boletería ni el Proyecto 2.
 
 ---
 
