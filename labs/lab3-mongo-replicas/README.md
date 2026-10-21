@@ -808,11 +808,10 @@ El PDF debe contener:
 4. tabla de lecturas obsoletas (Paso 7) y tabla de latencias por garantía (Paso 9), con n, calentamiento, máquina y límites de Docker;
 5. las fallas A, B y C: precondición, marcas de tiempo, errores, cálculo de RTO y RPO con filas del CSV;
 6. explicación de la mayoría 2/3 y de por qué «error ≠ no escrito»;
-7. **puente al P2:** lista de lo que deberá construir por su cuenta (no código copiado de este laboratorio) y los límites de lo medido.
 
 Además, el informe responde las preguntas y registra las predicciones que la guía pide en cada paso; puede agruparlas por paso.
 
-Distribución sugerida: páginas 1–2, configuración y replicación (pasos 1–7); página 3, atomicidad y garantías (pasos 8–9); páginas 4–6, fallas y puente al P2.
+Distribución sugerida: páginas 1–2, configuración y replicación (pasos 1–7); página 3, atomicidad y garantías (pasos 8–9); páginas 4–6, fallas.
 
 ### Lista de control antes de entregar
 
@@ -838,7 +837,7 @@ Distribución sugerida: páginas 1–2, configuración y replicación (pasos 1�
 | Replicación observada  | 15   | sin evidencia                          | oplog o lecturas, sin interpretación | oplog, retraso y tabla de lecturas obsoletas interpretadas con CAP                          |
 | Costo de las garantías | 15   | sin números                            | tabla sin método                     | 4 variantes, n ≥ 300, p50/p95/p99 y explicación del costo                                   |
 | Fallas A, B y C        | 25   | no se ejecutó                          | «siguió funcionando»                 | precondición, evidencia fechada, RTO y RPO con filas del CSV y «error ≠ no escrito»         |
-| Puente al P2 y límites | 5    | presenta el laboratorio como P2        | idea informal                        | enumera lo que construirá y reconoce los límites                                            |
+|                        |      |                                        |                                      |                                                                                             |
 
 
 **Topes.**
