@@ -1,3 +1,4 @@
 psycopg[binary]>=3.1,<4
 redis>=5,<7
 matplotlib>=3.8,<4
+pymongo>=4.7,<5

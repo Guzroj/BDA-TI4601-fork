@@ -59,6 +59,7 @@ usa libpq (`psycopg.connect()` sin hardcodear IPs).
 | Lab 0 concurrencia | `make lab-concurrency` · `labs/lab0-concurrency/` |
 | Lab 1 clúster (S5+) | `labs/lab1-cluster/` |
 | Lab 2 one size (S9) | `make lab2-up` · `labs/lab2-one-size/` |
+| Lab 3 réplicas MongoDB (S10) | `make lab3-up` · `labs/lab3-mongo-replicas/` |
 
 Índice: [`labs/README.md`](labs/README.md).
 
@@ -71,7 +72,7 @@ usa libpq (`psycopg.connect()` sin hardcodear IPs).
 | 0 | [`lab0-concurrency/`](labs/lab0-concurrency/) | S3 · Postgres · lost update (teoría S2) · **2,5 %** |
 | 1 | [`lab1-cluster/`](labs/lab1-cluster/) | S5 · Cockroach · quórum / P1 · **2,5 %** |
 | 2 | [`lab2-one-size/`](labs/lab2-one-size/) | S9 · Postgres + Valkey · one size fits all · **2,5 %** |
-| 3 | se publica S10 | S10 · fallas / partición de red · **2,5 %** |
+| 3 | [`lab3-mongo-replicas/`](labs/lab3-mongo-replicas/) | S10 · MongoDB · réplicas, mayoría, elección · **2,5 %** (+ Tarea 3, 1,5 %) |
 | 4 | se publica S13 | S13 · lakehouse · **2,5 %** |
 | 5 | se publica S15 | S15 · vectores + integración · **2,5 %** |
 
@@ -93,6 +94,9 @@ make lab-concurrency ISOLATION=SERIALIZABLE
 | `PGDATABASE` | `ti4601` | `ti4601` |
 | `PGSSLMODE` | — | `disable` |
 
+Lab 3 (`app-mongo`) usa `MONGO_URI=mongodb://mongo-1:27017,mongo-2:27017,mongo-3:27017/?replicaSet=rs-lab3`
+y `MONGO_DB=boleteria`. Los miembros de MongoDB no publican puertos al host.
+
 Host opcional: `psql` → `127.0.0.1:5433`. UI de CRDB → `http://127.0.0.1:8080`.
 
 Lab 1 usa multi-region SQL (`REGIONAL BY ROW` / `GLOBAL`). Un clúster nuevo `v24.3.0`
@@ -111,7 +115,7 @@ Fases Postgres → Cockroach: [`docs/fases-postgres-cockroach.md`](docs/fases-po
 
 | Ruta | Rol |
 | --- | --- |
-| `docker-compose.yml` | Red, postgres, app, perfil `lab1` |
+| `docker-compose.yml` | Red, postgres, app, perfiles `lab1`, `lab2` y `lab3` |
 | `db/init/` | Schema + CSV → initdb |
 | `transactions/` | Pipeline ACID (TEMP TABLE + `transaction()`) |
 | `Makefile` | Targets genéricos de entorno + atajos de lab |
@@ -125,3 +129,4 @@ Fases Postgres → Cockroach: [`docs/fases-postgres-cockroach.md`](docs/fases-po
 | Puerto 5433 ocupado | `POSTGRES_PORT=5434 make up` o `.env` |
 | `ModuleNotFoundError: psycopg` en el host | Use `compose run` / `make shell`; no el Python del host |
 | CRDB “already initialized” | Normal tras el primer `lab1-up` |
+| Mongo `NotYetInitialized` | Falta `rs.initiate()` (Lab 3, Paso 2) |
