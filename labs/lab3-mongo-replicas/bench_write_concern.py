@@ -52,7 +52,7 @@ def medir_escrituras(
     3. Devuelva la lista de ``n`` latencias, en el orden en que se midieron.
 
     Piense antes de ejecutar: ¿qué variante espera que sea la más lenta y cuál la más
-    rápida? ¿Cuánto cree que cambia ``j=True``? Anote su predicción en la bitácora.
+    rápida? ¿Cuánto cree que cambia ``j=True``? Anote su predicción en el informe.
     """
     raise NotImplementedError("TODO 4: medir_escrituras")
 
@@ -92,7 +92,7 @@ def main() -> int:
         print(f"{nombre:<12} {n:>5} {p50:>8.2f} {p95:>8.2f} {p99:>8.2f} {ops:>8.0f}")
     escribir_csv(args.csv, ["variante", "i", "latencia_ms"], filas)
     print(f"\nMuestras crudas: {args.csv}")
-    print("Declare en el reporte: máquina, RAM, SO, n, calentamiento y que los tres miembros "
+    print("Declare en el informe: máquina, RAM, SO, n, calentamiento y que los tres miembros "
           "comparten una sola computadora (sin latencia de red real).")
     return 0
 

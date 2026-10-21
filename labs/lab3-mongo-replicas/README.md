@@ -1,10 +1,11 @@
 # Laboratorio 3 — Conjuntos de réplicas en MongoDB: mayoría, elección y durabilidad
 
 **Semana:** 10 · **Valor:** 2,5 % del curso · **Motor:** MongoDB 8.0, conjunto de réplicas de 3 miembros  
-**Entrega:** domingo 25 de octubre de 2026, 11:00 pm, un PDF por equipo en TEC Digital, con el enlace al repositorio.  
-**Tiempo estimado:** 150–180 min con el entorno funcionando.  
+**Asignación:** miércoles 21 de octubre de 2026 · **Plazo:** 2 semanas  
+**Entrega:** miércoles 4 de noviembre de 2026, 11:00 pm, el informe en PDF (uno por equipo) en TEC Digital, con el enlace al repositorio.  
+**Tiempo estimado:** 150–180 min de trabajo con el entorno funcionando.  
 **Prerrequisitos:** diapositivas *Bases de datos orientadas a documentos* (modelo de documentos, `find`, `$exists`, `$nin`, teorema CAP) y el Lab 1 (mayoría y quórum con Raft).  
-**Tarea asociada (1,5 %):** [`TAREA.md`](TAREA.md).  
+**Tarea asociada (1,5 %):** [`TAREA.md`](TAREA.md), que se entrega **antes** que este laboratorio (miércoles 28 de octubre) y sirve de preparación para los Pasos 4 a 8.  
 Índice: [`../README.md`](../README.md).
 
 Este laboratorio es el **punto de entrada a la capa de registro del Proyecto 2**: el mismo Compose, el mismo cliente Python y el mismo método (precondición → evento → medición → verificación) se reutilizan en las semanas siguientes. El dominio del laboratorio (una boletería de eventos) es deliberadamente distinto del dominio del proyecto.
@@ -169,7 +170,7 @@ Use siempre `--no-deps`: sin esa opción Compose intenta arrancar o esperar a lo
 | --- | --- | --- | --- |
 | 0 | preparar y construir | existe `evidence/` y la imagen | — |
 | 1 | leer Compose y levantar | 3 contenedores sanos, sin conjunto | `cluster-start.txt` |
-| 2 | `rs.initiate()` | hay 1 primario y 2 secundarios | bitácora |
+| 2 | `rs.initiate()` | hay 1 primario y 2 secundarios | informe |
 | 3 | inspeccionar el conjunto | puede explicar `rs.status()` y `rs.conf()` | `rs-inspect.txt` |
 | 4 | generar la semilla | existe `data/MANIFEST.json` | `datos-manifest.txt` |
 | 5 | cargar (TODO 1 y 2) | `lab3-check` termina `6/6` | `config-check.txt`, `explain-indices.txt` |
@@ -182,7 +183,7 @@ Use siempre `--no-deps`: sin esa opción Compose intenta arrancar o esperar a lo
 | 12 | Falla B: el primario | RTO y RPO calculados | `falla-b*` |
 | 13 | Falla C: sin mayoría | errores que sí se escribieron | `falla-c*` |
 
-Marque en su bitácora cada paso como `OK` antes de pasar al siguiente. Use `evidence/comandos.md` para anotar el comando, el resultado y una explicación breve de cada punto de control.
+Lleve un **registro de comandos** en `evidence/comandos.md`: el comando, el resultado y la hora de cada punto de control, y marque cada paso como `OK` antes de pasar al siguiente. Las predicciones, las respuestas a las preguntas y el análisis van en el **informe** (el PDF que se entrega, sección 12). Escriba cada predicción en el informe **antes** de ejecutar el paso correspondiente.
 
 **Si reanuda un intento anterior:** ejecute `make lab3-status` y `make lab3-check`; continúe desde el primer `[FAIL]`. No use `lab3-down-v` «para probar suerte»: borra el estado que debe aprender a diagnosticar.
 
@@ -204,12 +205,12 @@ docker compose version
 make build                # la imagen del curso ahora incluye pymongo
 mkdir -p evidence
 test -f evidence/comandos.md \
-  || printf '# Bitácora Laboratorio 3\n\n' > evidence/comandos.md
+  || printf '# Registro de comandos — Laboratorio 3\n\n' > evidence/comandos.md
 ```
 
 ### Paso 1 — interpretar Compose antes de ejecutarlo
 
-Abra `docker-compose.yml` y localice los servicios `mongo-1`, `mongo-2` y `mongo-3`. Complete en su bitácora:
+Abra `docker-compose.yml` y localice los servicios `mongo-1`, `mongo-2` y `mongo-3`. Complete en su informe:
 
 | Servicio | `--replSet` | `hostname` | volumen | ¿publica puertos? |
 | --- | --- | --- | --- | --- |
@@ -281,12 +282,12 @@ Pistas si falla:
 
 | Mensaje | Causa probable |
 | --- | --- |
-| error que menciona el nombre del conjunto | el `_id` no coincide con `--replSet` del Compose |
+| `Rejecting initiate with a set name that differs from command line set name` | el `_id` no coincide con `--replSet` del Compose |
 | `No host described in new configuration ... maps to this node` | los `host` no son nombres que el nodo reconozca como suyos |
 | `NotYetInitialized` tras mucho rato | la sentencia falló; léala completa y repita |
 | `already initialized` | ya lo hizo: use `rs.status()`, no lo repita |
 
-En la bitácora responda:
+En el informe responda:
 
 1. ¿Por qué se recomienda un número impar de miembros votantes?
 2. ¿Qué campos de cada miembro no escribió pero MongoDB completó? (revíselo en el Paso 3).
@@ -325,7 +326,7 @@ printjson(rs.conf().members.map(m => ({ host: m.host, votes: m.votes, priority: 
 ' | tee evidence/rs-inspect.txt
 ```
 
-En la bitácora responda:
+En el informe responda:
 
 1. ¿Cuántos segundos pasan, como máximo, entre que un primario cae y un secundario pide votos? ¿De qué parámetro depende?
 2. ¿Qué equivalencia hay entre `term` y el término de Raft del Lab 1?
@@ -357,13 +358,13 @@ python3 labs/lab3-mongo-replicas/generar_datos.py | tee evidence/datos-manifest.
 
 > `data/` está ignorado por git y por la imagen: se genera, no se versiona.
 
-Prediga en la bitácora: ¿en cuántos miembros quedará cada documento que inserte en el Paso 5, y cuántos deben tenerlo antes de que `insert_many` responda?
+Prediga en el informe: ¿en cuántos miembros quedará cada documento que inserte en el Paso 5, y cuántos deben tenerlo antes de que `insert_many` responda?
 
 ### Paso 5 — cargar e indexar (TODO 1 y TODO 2)
 
 Abra [`cargar.py`](cargar.py) y lea sus dos TODO.
 
-- **TODO 1 — `cargar_eventos`.** Cargue el JSONL por lotes con `insert_many`. La conexión usa `w="majority"`: cada lote espera a que una mayoría lo tenga. Explique en el reporte por qué `ordered=False` conviene aquí.
+- **TODO 1 — `cargar_eventos`.** Cargue el JSONL por lotes con `insert_many`. La conexión usa `w="majority"`: cada lote espera a que una mayoría lo tenga. Explique en el informe por qué `ordered=False` conviene aquí.
 - **TODO 2 — `crear_indices`.** Dos índices compuestos para las dos consultas que describe el código. El orden de los campos importa: decida cuál va primero y por qué.
 
 **APP**
@@ -413,13 +414,14 @@ rs.printReplicationInfo()
 rs.printSecondaryReplicationInfo()
 ```
 
-Luego abra una segunda terminal en un **secundario** (`make lab3-shell NODE=mongo-N`) y lea el mismo documento:
+Luego abra una segunda terminal en un **secundario** (`make lab3-shell NODE=mongo-N`; el prompt dice `[direct: secondary]`) y lea el mismo documento:
 
 ```javascript
 use boleteria
-db.getMongo().setReadPref("secondaryPreferred")
 db.ordenes.find({ _id: "ORD-MANUAL-1" })
 ```
+
+`mongosh` conectado directamente a un secundario permite leer sin configurar nada más. Un driver, en cambio, envía las lecturas al primario salvo que se le indique otra preferencia de lectura; eso es lo que hace `lectura_secundario.py` en el Paso 7.
 
 Intente escribir en el secundario y anote el error:
 
@@ -437,7 +439,7 @@ rs.printSecondaryReplicationInfo();
 ' | tee evidence/oplog.txt
 ```
 
-Responda en la bitácora:
+Responda en el informe:
 
 1. ¿Qué significan los campos `op`, `ns`, `o`, `ts` y `t` de la entrada del oplog?
 2. ¿Por qué el oplog es una colección **capada**? ¿Qué le ocurre a un secundario que se atrasa más que la ventana del oplog (`log length start to end`)?
@@ -453,7 +455,7 @@ Se escribe un documento en el primario y **inmediatamente** se lee en un secunda
 | `majority_secundario` | `w:"majority"` | secundario |
 | `causal_majority` | `w:"majority"` | secundario, en una sesión causalmente consistente con `readConcern: majority` |
 
-**Antes de ejecutar**, escriba en la bitácora su predicción del porcentaje de lecturas obsoletas de cada modo y por qué.
+**Antes de ejecutar**, escriba en el informe su predicción del porcentaje de lecturas obsoletas de cada modo y por qué.
 
 **APP**
 
@@ -465,7 +467,7 @@ python3 labs/lab3-mongo-replicas/lectura_secundario.py --n 500 \
 
 **Resultado esperado:** tres filas con 500 intentos cada una. Sus porcentajes serán distintos a los de otro equipo; la **relación** entre modos es lo que debe explicar. El modo causal debe dar 0 %.
 
-En el reporte:
+En el informe:
 
 1. Explique, con la mecánica de `w:"majority"` en 3 miembros, por qué el segundo modo es mejor que el primero pero no llega a 0 %. (Pista: ¿cuántos miembros deben tener el dato antes de la respuesta, y a cuál secundario fue la lectura?)
 2. Clasifique cada modo según el teorema CAP: qué sacrifica y qué prioriza.
@@ -496,9 +498,9 @@ python3 labs/lab3-mongo-replicas/comprar.py | tee evidence/comprar.txt
 
 **Resultado esperado:** seis líneas `OK:` y la línea final `todas las verificaciones pasaron`.
 
-Antes de entregar, **rompa a propósito** su solución (por ejemplo, lea el documento, decida en Python y luego escriba) y ejecute de nuevo. Pegue en el reporte el resultado de la versión incorrecta y explique por qué fallan las verificaciones. Restaure luego la versión correcta.
+Antes de entregar, **rompa a propósito** su solución (por ejemplo, lea el documento, decida en Python y luego escriba) y ejecute de nuevo. Pegue en el informe el resultado de la versión incorrecta y explique por qué fallan las verificaciones. Restaure luego la versión correcta.
 
-Responda en la bitácora:
+Responda en el informe:
 
 1. ¿Qué garantiza MongoDB sobre dos `update_one` simultáneos al mismo documento? ¿Qué no garantiza sobre dos operaciones a documentos distintos?
 2. ¿Qué diferencia hay entre escribir las condiciones sobre `zonas.nombre` y `zonas.disponibles` por separado y agruparlas con `$elemMatch`? Construya un documento en el que ambas versiones den resultados distintos.
@@ -512,7 +514,7 @@ Responda en la bitácora:
 
 Abra [`bench_write_concern.py`](bench_write_concern.py). Usted escribe `medir_escrituras`; el resto (variantes, calentamiento, percentiles por rango más cercano y CSV) ya está hecho.
 
-**Antes de ejecutar**, ordene las cuatro variantes de más rápida a más lenta en su bitácora y estime cuántas veces más lenta es `majority` que `w1`.
+**Antes de ejecutar**, ordene las cuatro variantes de más rápida a más lenta en su informe y estime cuántas veces más lenta es `majority` que `w1`.
 
 **APP**
 
@@ -525,7 +527,7 @@ wc -l evidence/write-concern.csv
 
 **Resultado esperado:** `1201` líneas en el CSV (cabecera + 4 × 300) y una tabla con p50, p95, p99 y operaciones por segundo por variante.
 
-En el reporte:
+En el informe:
 
 1. Presente la tabla (n, calentamiento, p50, p95, p99, ops/s) y declare máquina, RAM y sistema operativo.
 2. Compare con su predicción. Explique qué espera cada variante: ¿por qué `w3` y `majority` no difieren tanto como cabría esperar en un conjunto de 3 miembros? ¿Qué agrega `j:true`?
@@ -575,7 +577,7 @@ make lab3-status
 
 ### Paso 11 — Falla A: cae un secundario
 
-**Predicción (bitácora):** ¿habrá errores? ¿Cambiará la latencia? ¿Cuántos miembros quedan para formar mayoría?
+**Predicción (informe):** ¿habrá errores? ¿Cambiará la latencia? ¿Cuántos miembros quedan para formar mayoría?
 
 **Precondición.** Registre el estado y elija un **secundario**:
 
@@ -628,7 +630,7 @@ Calcule y explique:
 
 ### Paso 12 — Falla B: cae el primario
 
-**Predicción (bitácora):** ¿cuántos segundos cree que no habrá primario? ¿De qué parámetro depende? ¿Qué verá la sonda mientras tanto?
+**Predicción (informe):** ¿cuántos segundos cree que no habrá primario? ¿De qué parámetro depende? ¿Qué verá la sonda mientras tanto?
 
 **Precondición.** Identifique el primario (`make lab3-status`) y guarde el estado:
 
@@ -693,7 +695,7 @@ Repita el escenario con nombres de archivo distintos (`falla-b5.*`) y compare lo
 
 ### Paso 13 — Falla C: dos miembros caídos, el primario vivo
 
-**Predicción (bitácora), antes de ejecutar:**
+**Predicción (informe), antes de ejecutar:**
 
 1. Con un solo miembro vivo, ¿habrá primario? ¿Por cuánto tiempo seguirá creyéndose primario el que sobrevive?
 2. ¿Qué resultado tendrá cada `insert` con `w:"majority"`? ¿Se habrá escrito el documento en el miembro vivo aunque la respuesta sea un error?
@@ -708,7 +710,7 @@ set -o pipefail
 rm -f evidence/falla-c-stop.epoch
 docker compose --profile lab3 run --rm --no-deps app-mongo \
   python3 labs/lab3-mongo-replicas/sonda_escrituras.py \
-    --duration 60 --label "Falla C" \
+    --duration 90 --label "Falla C" \
     --w majority --wtimeout-ms 2000 \
     --signal-file evidence/falla-c-stop.epoch \
     --csv evidence/falla-c.csv \
@@ -755,11 +757,11 @@ Esto no es una partición de red: los procesos están detenidos. `tc`/Toxiproxy 
 
 ## 12. Entregable
 
-Entregue un **PDF de máximo 4 páginas**, su bitácora y `evidence/`:
+Entregue el **informe en PDF, de máximo 6 páginas**, y en el repositorio la carpeta `evidence/` con su registro de comandos:
 
 ```text
 evidence/
-├── comandos.md
+├── comandos.md          (registro de comandos)
 ├── cluster-start.txt
 ├── rs-inspect.txt
 ├── datos-manifest.txt
@@ -783,11 +785,13 @@ El PDF debe contener:
 2. lectura de `rs.status()`/`rs.conf()`: primario, `term`, `electionTimeoutMillis`, `votes`;
 3. decisiones de los TODO 1–5 (índices y su `explain`, por qué `ordered=False`, por qué la compra es atómica, qué mide cada variante, cómo clasifica el RPO);
 4. tabla de lecturas obsoletas (Paso 7) y tabla de latencias por garantía (Paso 9), con n, calentamiento, máquina y límites de Docker;
-5. bitácora de las fallas A, B y C: precondición, marcas de tiempo, errores, cálculo de RTO y RPO con filas del CSV;
+5. las fallas A, B y C: precondición, marcas de tiempo, errores, cálculo de RTO y RPO con filas del CSV;
 6. explicación de la mayoría 2/3 y de por qué «error ≠ no escrito»;
 7. **puente al P2:** lista de lo que deberá construir por su cuenta (no código copiado de este laboratorio) y los límites de lo medido.
 
-Distribución sugerida: página 1, configuración y replicación (pasos 1–7); página 2, atomicidad y garantías (pasos 8–9); páginas 3–4, fallas y puente al P2.
+Además, el informe responde las preguntas y registra las predicciones que la guía pide en cada paso; puede agruparlas por paso.
+
+Distribución sugerida: páginas 1–2, configuración y replicación (pasos 1–7); página 3, atomicidad y garantías (pasos 8–9); páginas 4–6, fallas y puente al P2.
 
 ### Lista de control antes de entregar
 
@@ -796,7 +800,8 @@ Distribución sugerida: página 1, configuración y replicación (pasos 1–7); 
 - [ ] `write-concern.csv` tiene 1201 líneas.
 - [ ] Cada cálculo de RTO muestra las filas del CSV, no solo el valor impreso.
 - [ ] El RPO se refiere a operaciones confirmadas, no a intentos.
-- [ ] Cada predicción está escrita **antes** del resultado.
+- [ ] Cada predicción del informe se escribió **antes** de ejecutar el paso.
+- [ ] `evidence/comandos.md` registra cada paso con su hora y `OK`.
 - [ ] El conjunto quedó restaurado (1 primario, 2 secundarios).
 - [ ] Máquina, RAM y SO declarados.
 
@@ -805,7 +810,7 @@ Distribución sugerida: página 1, configuración y replicación (pasos 1–7); 
 | Criterio | Peso | 0 | 50 | 100 |
 | --- | --- | --- | --- | --- |
 | Configuración propia | 15 | usa artefactos ajenos | ejecuta sin explicar | `rs.initiate` propio, `6/6` y decisiones explicadas |
-| Código TODO 1–5 | 25 | falta alguno o no pasa la verificación | los cinco pasan sin explicar | los cinco pasan y el reporte explica por qué la compra es atómica y por qué `ordered=False` |
+| Código TODO 1–5 | 25 | falta alguno o no pasa la verificación | los cinco pasan sin explicar | los cinco pasan y el informe explica por qué la compra es atómica y por qué `ordered=False` |
 | Replicación observada | 15 | sin evidencia | oplog o lecturas, sin interpretación | oplog, retraso y tabla de lecturas obsoletas interpretadas con CAP |
 | Costo de las garantías | 15 | sin números | tabla sin método | 4 variantes, n ≥ 300, p50/p95/p99 y explicación del costo |
 | Fallas A, B y C | 25 | no se ejecutó | «siguió funcionando» | precondición, evidencia fechada, RTO y RPO con filas del CSV y «error ≠ no escrito» |

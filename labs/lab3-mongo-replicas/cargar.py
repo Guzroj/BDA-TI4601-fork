@@ -39,7 +39,7 @@ def cargar_eventos(db: Database, ruta: Path, lote: int = 500) -> int:
 
     La conexión que recibe ya usa ``w="majority"``: cada ``insert_many`` espera a que
     una mayoría de miembros tenga el lote. No hace falta repetirlo aquí, pero en el
-    reporte debe poder explicar qué esperó cada llamada.
+    informe debe poder explicar qué esperó cada llamada.
     """
     raise NotImplementedError("TODO 1: cargar_eventos")
 
@@ -59,7 +59,7 @@ def crear_indices(db: Database) -> list[str]:
 
     Defina un índice compuesto para cada una. El orden de los campos importa: ponga
     primero los campos de igualdad y después el de rango u orden. Justifique su
-    elección en el reporte con ``explain()`` (Paso 5).
+    elección en el informe con ``explain()`` (Paso 5).
 
     Use ``create_index`` con una lista de pares ``(campo, ASCENDING)``.
     """

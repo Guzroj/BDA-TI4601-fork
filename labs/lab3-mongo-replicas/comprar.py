@@ -70,7 +70,7 @@ def comprar_entradas(
        servidor, dentro de la misma operación (``matched_count`` / ``modified_count``).
     4. Actualice el estado de la orden a ``"confirmada"`` o ``"agotada"``.
 
-    Anote en el reporte qué ocurre si el proceso muere entre los pasos 2 y 4, y cómo
+    Anote en el informe qué ocurre si el proceso muere entre los pasos 2 y 4, y cómo
     lo detectaría (Paso 8, pregunta 3).
     """
     raise NotImplementedError("TODO 3: comprar_entradas")
