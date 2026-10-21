@@ -80,7 +80,7 @@ Antes de escribir A2, pruebe en `mongosh` la versión **sin** `$elemMatch` (dos 
 
 ---
 
-## 3. Parte B — Embeber o referenciar (30 puntos)
+## 3. Parte B — Anida o referenciar (30 puntos)
 
 En la boletería, las zonas viven **dentro** del documento del evento. Para registrar las compras, un compañero propone guardar también cada orden como un elemento de un arreglo `ordenes` dentro del evento. Otra opción es una colección aparte `ordenes` que referencia al evento por su `_id`.
 
