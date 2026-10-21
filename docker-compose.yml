@@ -4,6 +4,7 @@
 #   (ninguno)  postgres          → Semanas 2–4 + lab concurrencia
 #   lab1       cockroachdb ×3    → Lab 1 (S5) y P1 (S5–S8)
 #   lab2       valkey (clave-valor) → Laboratorio 2 (S9)
+#   lab3       mongodb ×3 (conjunto de réplicas) → Laboratorio 3 (S10) y base del P2
 #
 # Cliente Python: siempre vía `docker compose run --rm app …`
 # (Compose habilita el perfil del servicio target automáticamente).
@@ -156,11 +157,91 @@ services:
     networks:
       - curso
 
+  # ---------------------------------------------------------------------------
+  # Laboratorio 3 — MongoDB: conjunto de réplicas de tres miembros.
+  # Compose solo arranca los tres procesos con --replSet. NO ejecuta rs.initiate():
+  # inicializar el conjunto es parte del trabajo del estudiante (Paso 2).
+  # Sin autenticación ni TLS: entorno didáctico en una sola máquina.
+  # ---------------------------------------------------------------------------
+  mongo-1:
+    image: mongo:8.0
+    profiles: ["lab3"]
+    container_name: ti4601-mongo-1
+    hostname: mongo-1
+    command: ["mongod", "--replSet", "rs-lab3", "--bind_ip_all", "--wiredTigerCacheSizeGB", "0.25"]
+    volumes:
+      - mongo1:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 3s
+      timeout: 5s
+      retries: 20
+    networks:
+      - curso
+
+  mongo-2:
+    image: mongo:8.0
+    profiles: ["lab3"]
+    container_name: ti4601-mongo-2
+    hostname: mongo-2
+    command: ["mongod", "--replSet", "rs-lab3", "--bind_ip_all", "--wiredTigerCacheSizeGB", "0.25"]
+    volumes:
+      - mongo2:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 3s
+      timeout: 5s
+      retries: 20
+    networks:
+      - curso
+
+  mongo-3:
+    image: mongo:8.0
+    profiles: ["lab3"]
+    container_name: ti4601-mongo-3
+    hostname: mongo-3
+    command: ["mongod", "--replSet", "rs-lab3", "--bind_ip_all", "--wiredTigerCacheSizeGB", "0.25"]
+    volumes:
+      - mongo3:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 3s
+      timeout: 5s
+      retries: 20
+    networks:
+      - curso
+
+  app-mongo:
+    build: .
+    image: ti4601:local
+    profiles: ["lab3"]
+    working_dir: /src
+    environment:
+      # La URI lista los tres miembros: el driver descubre quién es el primario
+      # y sigue funcionando si uno de ellos está caído.
+      MONGO_URI: mongodb://mongo-1:27017,mongo-2:27017,mongo-3:27017/?replicaSet=rs-lab3
+      MONGO_DB: boleteria
+      TI4601_ENGINE: mongodb
+    volumes:
+      - .:/src
+    depends_on:
+      mongo-1:
+        condition: service_healthy
+      mongo-2:
+        condition: service_healthy
+      mongo-3:
+        condition: service_healthy
+    networks:
+      - curso
+
 volumes:
   pgdata:
   crdb1:
   crdb2:
   crdb3:
+  mongo1:
+  mongo2:
+  mongo3:
 
 networks:
   curso:

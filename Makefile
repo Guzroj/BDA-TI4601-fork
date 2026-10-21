@@ -3,9 +3,11 @@
 
 .PHONY: help up down down-v build shell test-tx lab-concurrency \
 	lab1-up lab1-down lab1-down-v lab1-shell lab1-status lab1-check reset-pg \
-	lab2-up lab2-down
+	lab2-up lab2-down \
+	lab3-up lab3-down lab3-down-v lab3-status lab3-shell lab3-app lab3-check
 
 COMPOSE := docker compose
+NODE ?= mongo-1
 ISOLATION ?= READ_COMMITTED
 WORKERS ?= 40
 RETRIES ?= 8
@@ -19,9 +21,11 @@ help:
 	@echo "         make lab1-down | lab1-down-v"
 	@echo "  Configuración, medición y chaos: seguir labs/lab1-cluster/README.md"
 	@echo "  Lab 2 (S9): make lab2-up | lab2-down · labs/lab2-one-size/README.md"
+	@echo "  Lab 3 (S10): make lab3-up | lab3-status [NODE=mongo-2] | lab3-shell [NODE=mongo-2] | lab3-app | lab3-check"
+	@echo "               make lab3-down | lab3-down-v · labs/lab3-mongo-replicas/README.md"
 	@echo ""
 	@echo "Smoke test (manual): ver README.md § Verificar el entorno"
-	@echo "Docs: labs/README.md · labs/lab0-concurrency/ · labs/lab1-cluster/ · labs/lab2-one-size/"
+	@echo "Docs: labs/README.md · labs/lab0-concurrency/ · labs/lab1-cluster/ · labs/lab2-one-size/ · labs/lab3-mongo-replicas/"
 
 up:
 	$(COMPOSE) up -d postgres
@@ -78,3 +82,28 @@ lab1-status:
 lab1-check:
 	$(COMPOSE) --profile lab1 run --rm --no-deps app-crdb \
 		python3 labs/lab1-cluster/verify_cluster.py
+
+# --- Laboratorio 3: MongoDB (solo infraestructura; NO inicializa el conjunto) ---
+
+lab3-up: build
+	$(COMPOSE) --profile lab3 up -d mongo-1 mongo-2 mongo-3
+
+lab3-status:
+	$(COMPOSE) --profile lab3 ps
+	-docker exec ti4601-$(NODE) mongosh --quiet --eval 'try { rs.status().members.forEach(function (m) { print(m.name + "  " + m.stateStr + "  health=" + m.health) }) } catch (e) { print("conjunto no inicializado o nodo sin respuesta: " + (e.codeName || e.message)) }'
+
+lab3-shell:
+	docker exec -it ti4601-$(NODE) mongosh
+
+lab3-app:
+	$(COMPOSE) --profile lab3 run --rm --no-deps app-mongo bash
+
+lab3-check:
+	$(COMPOSE) --profile lab3 run --rm --no-deps app-mongo \
+		python3 labs/lab3-mongo-replicas/verify_replica.py
+
+lab3-down:
+	$(COMPOSE) --profile lab3 down
+
+lab3-down-v:
+	$(COMPOSE) --profile lab3 down -v
