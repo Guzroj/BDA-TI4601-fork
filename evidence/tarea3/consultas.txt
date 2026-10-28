@@ -1,0 +1,3038 @@
+== A1 ==
+{
+  fecha: '2026-12-02',
+  nombre: 'Concierto Urbano 331',
+  recinto: 'Auditorio Norte'
+}
+{
+  fecha: '2026-12-08',
+  nombre: 'Concierto Eléctrico 232',
+  recinto: 'Parque de Eventos Sur'
+}
+{
+  fecha: '2027-01-09',
+  nombre: 'Concierto Tropical 115',
+  recinto: 'Arena Central'
+}
+{
+  fecha: '2027-01-13',
+  nombre: 'Concierto Vibrante 1',
+  recinto: 'Arena Central'
+}
+{
+  fecha: '2027-01-24',
+  nombre: 'Concierto Andino 196',
+  recinto: 'Parque de Eventos Sur'
+}
+{
+  fecha: '2027-02-16',
+  nombre: 'Concierto Urbano 273',
+  recinto: 'Teatro del Valle'
+}
+{
+  fecha: '2027-02-26',
+  nombre: 'Concierto Solar 271',
+  recinto: 'Parque de Eventos Sur'
+}
+== A1 explain ANTES del índice ==
+sin índice (solo _id)
+{
+  etapa: 'COLLSCAN',
+  indice: null,
+  nReturned: 7,
+  totalDocsExamined: 400,
+  totalKeysExamined: 0,
+  executionTimeMillis: 0
+}
+createIndex: categoria_1_ciudad_1_fecha_1
+== A1 explain DESPUÉS del índice ==
+con índice {categoria:1, ciudad:1, fecha:1}
+{
+  etapa: 'IXSCAN',
+  indice: 'categoria_1_ciudad_1_fecha_1',
+  nReturned: 7,
+  totalDocsExamined: 7,
+  totalKeysExamined: 7,
+  executionTimeMillis: 1
+}
+== A2 ==
+sin $elemMatch (dos condiciones separadas): 265
+con $elemMatch: 195
+falsos positivos sin $elemMatch: 70
+ejemplo de falso positivo:
+{
+  _id: 'EV-0016',
+  nombre: 'Conferencia Clásico 16',
+  zonas: [
+    {
+      capacidad: 200,
+      disponibles: 200,
+      nombre: 'General',
+      precio: 8000
+    },
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 50000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Eléctrico 7',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Vibrante 17',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Vibrante 19',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Vibrante 20',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Clásico 21',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Tropical 27',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Nocturno 26',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Nocturno 29',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Urbano 31',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Nocturno 28',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Festival Nocturno 30',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Andino 33',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Vibrante 1',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Solar 9',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Urbano 11',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Nocturno 35',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Clásico 34',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Clásico 37',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Urbano 41',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Clásico 42',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Clásico 46',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Urbano 60',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Festival Eléctrico 63',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Eléctrico 65',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Festival Tropical 66',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Solar 67',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Clásico 49',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Eléctrico 14',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Solar 13',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Urbano 73',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Solar 74',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Andino 76',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Clásico 83',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Vibrante 79',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Nocturno 85',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Clásico 86',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Andino 87',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Andino 88',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Nocturno 91',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Festival Solar 97',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Urbano 94',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Tropical 90',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Eléctrico 98',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Tropical 105',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Andino 96',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Urbano 103',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Tropical 115',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Andino 106',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Andino 104',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Festival Clásico 107',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Nocturno 114',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Solar 120',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Clásico 118',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Festival Andino 119',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Festival Vibrante 108',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Solar 121',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Nocturno 132',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Festival Andino 127',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Solar 128',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Clásico 136',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Vibrante 135',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Vibrante 139',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Eléctrico 137',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Urbano 149',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Vibrante 147',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Solar 146',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Solar 152',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Eléctrico 144',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Urbano 159',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Eléctrico 148',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Urbano 158',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Festival Tropical 131',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Solar 164',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Festival Eléctrico 161',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Festival Clásico 157',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Festival Nocturno 165',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Eléctrico 167',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Festival Solar 169',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Festival Andino 170',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Festival Solar 171',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Festival Urbano 173',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Tropical 172',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Clásico 177',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Nocturno 183',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Festival Eléctrico 174',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Vibrante 178',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Vibrante 185',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Urbano 187',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Nocturno 188',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Tropical 194',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Tropical 192',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Festival Clásico 182',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Solar 204',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Festival Vibrante 186',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Nocturno 198',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Solar 205',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Andino 200',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Festival Eléctrico 195',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Nocturno 203',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Eléctrico 197',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Andino 199',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Andino 196',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Urbano 212',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Nocturno 210',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Andino 216',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Nocturno 215',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Eléctrico 221',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Solar 218',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Vibrante 223',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Tropical 217',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Urbano 222',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Clásico 234',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Andino 231',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Solar 227',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Tropical 226',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Festival Solar 235',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Urbano 242',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Tropical 225',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Festival Clásico 238',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Andino 245',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Nocturno 248',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Vibrante 246',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Urbano 244',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Solar 251',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Eléctrico 232',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Andino 256',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Festival Nocturno 255',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Tropical 262',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Andino 263',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Tropical 265',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Clásico 261',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Clásico 267',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Solar 271',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Tropical 274',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Urbano 273',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Nocturno 236',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Clásico 275',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Andino 276',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Urbano 277',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Festival Tropical 281',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Eléctrico 278',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Nocturno 279',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Andino 282',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Eléctrico 286',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Festival Urbano 296',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Eléctrico 298',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Eléctrico 289',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Vibrante 301',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Vibrante 300',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Tropical 293',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Solar 311',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Eléctrico 306',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Urbano 313',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Vibrante 319',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Clásico 312',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Clásico 310',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Festival Clásico 308',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Urbano 325',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Tropical 321',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Nocturno 315',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Festival Urbano 316',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Vibrante 317',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Festival Andino 326',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Tropical 318',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Urbano 327',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Solar 329',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Tropical 334',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Festival Vibrante 336',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Solar 337',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Nocturno 342',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Clásico 340',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Clásico 338',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Vibrante 341',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Festival Andino 344',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Vibrante 348',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Tropical 349',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Eléctrico 352',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Nocturno 355',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Tropical 350',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Clásico 357',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Tropical 346',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Clásico 363',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Tropical 364',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Festival Urbano 369',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Solar 368',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Nocturno 375',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Tropical 383',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Deporte Andino 377',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Festival Tropical 379',
+  zonas: [
+    {
+      capacidad: 40,
+      disponibles: 40,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Vibrante 382',
+  zonas: [
+    {
+      capacidad: 20,
+      disponibles: 20,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Festival Tropical 394',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Conferencia Nocturno 389',
+  zonas: [
+    {
+      capacidad: 60,
+      disponibles: 60,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Teatro Urbano 387',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Nocturno 388',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 45000
+    }
+  ]
+}
+{
+  nombre: 'Concierto Solar 386',
+  zonas: [
+    {
+      capacidad: 100,
+      disponibles: 100,
+      nombre: 'VIP',
+      precio: 47000
+    }
+  ]
+}
+== A3 ==
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'accesible',
+    'transmisión en vivo'
+  ],
+  nombre: 'Concierto Urbano 149'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'transmisión en vivo',
+    'accesible'
+  ],
+  nombre: 'Concierto Nocturno 26'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'accesible',
+    'transmisión en vivo',
+    'familiar'
+  ],
+  nombre: 'Concierto Clásico 261'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    '18+',
+    'accesible'
+  ],
+  nombre: 'Concierto Andino 282'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'familiar',
+    'al aire libre',
+    'accesible'
+  ],
+  nombre: 'Concierto Andino 345'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'accesible',
+    'transmisión en vivo',
+    'al aire libre'
+  ],
+  nombre: 'Concierto Clásico 37'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'al aire libre',
+    'accesible'
+  ],
+  nombre: 'Concierto Eléctrico 232'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'al aire libre',
+    'accesible',
+    'familiar'
+  ],
+  nombre: 'Concierto Tropical 115'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'accesible'
+  ],
+  nombre: 'Concierto Urbano 273'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'accesible'
+  ],
+  nombre: 'Concierto Solar 271'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'accesible'
+  ],
+  nombre: 'Concierto Tropical 350'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'transmisión en vivo',
+    'familiar',
+    'accesible'
+  ],
+  nombre: 'Concierto Solar 386'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'accesible',
+    'transmisión en vivo'
+  ],
+  nombre: 'Concierto Solar 323'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'familiar',
+    'accesible'
+  ],
+  nombre: 'Concierto Andino 134'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'familiar',
+    'accesible'
+  ],
+  nombre: 'Concierto Vibrante 19'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'accesible'
+  ],
+  nombre: 'Concierto Vibrante 348'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'al aire libre',
+    'accesible'
+  ],
+  nombre: 'Concierto Nocturno 279'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'accesible',
+    'al aire libre',
+    'familiar'
+  ],
+  nombre: 'Concierto Vibrante 8'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'transmisión en vivo',
+    'al aire libre',
+    'accesible'
+  ],
+  nombre: 'Concierto Clásico 86'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'accesible',
+    'al aire libre'
+  ],
+  nombre: 'Concierto Nocturno 388'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'transmisión en vivo',
+    'familiar',
+    'accesible'
+  ],
+  nombre: 'Concierto Andino 220'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'familiar',
+    'accesible'
+  ],
+  nombre: 'Concierto Clásico 312'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'accesible',
+    'al aire libre'
+  ],
+  nombre: 'Concierto Solar 13'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'al aire libre',
+    'accesible'
+  ],
+  nombre: 'Concierto Nocturno 254'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    '18+',
+    'al aire libre',
+    'accesible'
+  ],
+  nombre: 'Concierto Clásico 109'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    '18+',
+    'transmisión en vivo',
+    'accesible'
+  ],
+  nombre: 'Concierto Nocturno 3'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'transmisión en vivo',
+    'accesible'
+  ],
+  nombre: 'Concierto Tropical 293'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    '18+',
+    'accesible',
+    'al aire libre'
+  ],
+  nombre: 'Concierto Nocturno 287'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'accesible',
+    'familiar'
+  ],
+  nombre: 'Concierto Tropical 291'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'familiar',
+    'accesible',
+    'al aire libre'
+  ],
+  nombre: 'Concierto Clásico 81'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'al aire libre',
+    '18+',
+    'accesible'
+  ],
+  nombre: 'Concierto Vibrante 12'
+}
+{
+  categoria: 'concierto',
+  etiquetas: [
+    'accesible'
+  ],
+  nombre: 'Concierto Urbano 361'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible',
+    'familiar',
+    'al aire libre'
+  ],
+  nombre: 'Deporte Vibrante 20'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible'
+  ],
+  nombre: 'Deporte Tropical 50'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible'
+  ],
+  nombre: 'Deporte Urbano 339'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'al aire libre',
+    'accesible',
+    'familiar'
+  ],
+  nombre: 'Deporte Tropical 214'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible',
+    '18+'
+  ],
+  nombre: 'Deporte Eléctrico 150'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible',
+    'transmisión en vivo',
+    'al aire libre'
+  ],
+  nombre: 'Deporte Eléctrico 370'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible',
+    'al aire libre',
+    '18+'
+  ],
+  nombre: 'Deporte Nocturno 264'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible',
+    'familiar',
+    'al aire libre'
+  ],
+  nombre: 'Deporte Andino 208'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible',
+    '18+'
+  ],
+  nombre: 'Deporte Tropical 2'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible',
+    'al aire libre'
+  ],
+  nombre: 'Deporte Nocturno 201'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible',
+    'al aire libre',
+    'transmisión en vivo'
+  ],
+  nombre: 'Deporte Tropical 166'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible'
+  ],
+  nombre: 'Deporte Solar 329'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible',
+    'transmisión en vivo'
+  ],
+  nombre: 'Deporte Urbano 212'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible',
+    'familiar',
+    '18+'
+  ],
+  nombre: 'Deporte Nocturno 355'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible'
+  ],
+  nombre: 'Deporte Solar 152'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'transmisión en vivo',
+    'accesible'
+  ],
+  nombre: 'Deporte Solar 227'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'al aire libre',
+    'accesible',
+    'familiar'
+  ],
+  nombre: 'Deporte Nocturno 315'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible'
+  ],
+  nombre: 'Deporte Tropical 318'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible',
+    'familiar',
+    '18+'
+  ],
+  nombre: 'Deporte Urbano 333'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible'
+  ],
+  nombre: 'Deporte Nocturno 84'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'al aire libre',
+    'accesible'
+  ],
+  nombre: 'Deporte Urbano 266'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'familiar',
+    'accesible',
+    '18+'
+  ],
+  nombre: 'Deporte Tropical 78'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible',
+    'familiar',
+    'transmisión en vivo'
+  ],
+  nombre: 'Deporte Tropical 95'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible',
+    'al aire libre'
+  ],
+  nombre: 'Deporte Eléctrico 179'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'familiar',
+    'accesible'
+  ],
+  nombre: 'Deporte Andino 33'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible',
+    '18+'
+  ],
+  nombre: 'Deporte Eléctrico 285'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible'
+  ],
+  nombre: 'Deporte Andino 200'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible',
+    'familiar',
+    '18+'
+  ],
+  nombre: 'Deporte Eléctrico 14'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    '18+',
+    'accesible',
+    'transmisión en vivo'
+  ],
+  nombre: 'Deporte Tropical 226'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible',
+    '18+'
+  ],
+  nombre: 'Deporte Vibrante 223'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'al aire libre',
+    'accesible'
+  ],
+  nombre: 'Deporte Tropical 207'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'accesible',
+    'al aire libre',
+    '18+'
+  ],
+  nombre: 'Deporte Clásico 34'
+}
+{
+  categoria: 'deporte',
+  etiquetas: [
+    'al aire libre',
+    '18+',
+    'accesible'
+  ],
+  nombre: 'Deporte Eléctrico 23'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'accesible',
+    'familiar'
+  ],
+  nombre: 'Festival Tropical 360'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'familiar',
+    'accesible'
+  ],
+  nombre: 'Festival Andino 54'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'familiar',
+    'accesible'
+  ],
+  nombre: 'Festival Clásico 182'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'accesible',
+    'transmisión en vivo',
+    'al aire libre'
+  ],
+  nombre: 'Festival Urbano 250'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'al aire libre',
+    'accesible'
+  ],
+  nombre: 'Festival Nocturno 305'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'transmisión en vivo',
+    'accesible',
+    'familiar'
+  ],
+  nombre: 'Festival Solar 235'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'accesible',
+    '18+'
+  ],
+  nombre: 'Festival Andino 52'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'accesible',
+    'al aire libre',
+    'transmisión en vivo'
+  ],
+  nombre: 'Festival Tropical 15'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'accesible',
+    'al aire libre'
+  ],
+  nombre: 'Festival Vibrante 280'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    '18+',
+    'accesible'
+  ],
+  nombre: 'Festival Urbano 173'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'transmisión en vivo',
+    'familiar',
+    'accesible'
+  ],
+  nombre: 'Festival Urbano 176'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'accesible',
+    'familiar'
+  ],
+  nombre: 'Festival Solar 304'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    '18+',
+    'accesible',
+    'transmisión en vivo'
+  ],
+  nombre: 'Festival Tropical 131'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'accesible',
+    'al aire libre'
+  ],
+  nombre: 'Festival Eléctrico 272'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    '18+',
+    'familiar',
+    'accesible'
+  ],
+  nombre: 'Festival Tropical 239'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'accesible'
+  ],
+  nombre: 'Festival Tropical 281'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'familiar',
+    'transmisión en vivo',
+    'accesible'
+  ],
+  nombre: 'Festival Tropical 206'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'accesible',
+    'transmisión en vivo'
+  ],
+  nombre: 'Festival Tropical 379'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'accesible',
+    '18+',
+    'al aire libre'
+  ],
+  nombre: 'Festival Tropical 394'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'familiar',
+    'al aire libre',
+    'accesible'
+  ],
+  nombre: 'Festival Eléctrico 161'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'accesible',
+    'transmisión en vivo'
+  ],
+  nombre: 'Festival Urbano 296'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'familiar',
+    '18+',
+    'accesible'
+  ],
+  nombre: 'Festival Eléctrico 168'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'accesible'
+  ],
+  nombre: 'Festival Urbano 369'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    '18+',
+    'accesible'
+  ],
+  nombre: 'Festival Nocturno 72'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'al aire libre',
+    '18+',
+    'accesible'
+  ],
+  nombre: 'Festival Andino 119'
+}
+{
+  categoria: 'festival',
+  etiquetas: [
+    'accesible',
+    '18+',
+    'familiar'
+  ],
+  nombre: 'Festival Clásico 384'
+}
+== A4 ==
+{
+  _id: 'concierto',
+  eventos_sin_patrocinador: 57
+}
+{
+  _id: 'conferencia',
+  eventos_sin_patrocinador: 61
+}
+{
+  _id: 'deporte',
+  eventos_sin_patrocinador: 58
+}
+{
+  _id: 'festival',
+  eventos_sin_patrocinador: 49
+}
+{
+  _id: 'teatro',
+  eventos_sin_patrocinador: 50
+}
+== A5 ==
+{
+  _id: 'Heredia',
+  capacidad_total: 30380
+}
+{
+  _id: 'Liberia',
+  capacidad_total: 24160
+}
+{
+  _id: 'San Carlos',
+  capacidad_total: 21810
+}
+{
+  _id: 'Alajuela',
+  capacidad_total: 21020
+}
+{
+  _id: 'Puntarenas',
+  capacidad_total: 17180
+}
+{
+  _id: 'San José',
+  capacidad_total: 17150
+}
+{
+  _id: 'Limón',
+  capacidad_total: 15560
+}
+{
+  _id: 'Cartago',
+  capacidad_total: 15550
+}
+== B ==
+bsonsize(orden) = 122 bytes
+órdenes en 16 MB (16777216 B), sin contar el resto del evento: 137518
+bsonsize(evento EV-0001) = 508 bytes
